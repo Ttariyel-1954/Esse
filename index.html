@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esse Yazı Növlərinin Yoxlanılması və Qiymətləndirilməsi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .lesson-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .lesson-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .lesson-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .lesson-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .lesson-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        .github-info {
+            background: rgba(52, 73, 94, 0.1);
+            padding: 20px;
+            margin: 20px 40px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .github-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .github-info p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .github-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .github-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .lesson-card {
+                padding: 20px;
+            }
+            
+            .github-info {
+                margin: 20px 20px;
+                padding: 15px;
+            }
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1>📝 Esse Yazı Növlərinin Yoxlanılması</h1>
+            <p>Ətraflı təhsil materialları və qiymətləndirmə metodları</p>
+        </header>
+
+        <div class="github-info">
+            <h3>📚 GitHub Repozitoriyası</h3>
+            <p>Bu dərslər <a href="https://github.com/Ttariyel-1954/Esse" class="github-link" target="_blank">Ttariyel-1954/Esse</a> repozitoriyasında yerləşir. Bütün materiallar açıq mənbə olaraq təqdim edilmişdir.</p>
+        </div>
+
+        <main class="lessons-grid">
+            <article class="lesson-card">
+                <div class="lesson-number">1</div>
+                <h2 class="lesson-title">Esse yazının mahiyyəti və təsnifatı</h2>
+                <p class="lesson-description">
+                    Esse yazının tərifini, əsas xüsusiyyətlərini və müxtəlif növlərini öyrənin. 
+                    Bu dərsdə esse yazının tarixi inkişafı və müasir tədqiqat sahəsindəki yeri araşdırılır.
+                </p>
+                <a href="Ders-1.html" class="lesson-link">Dərsə keç →</a>
+            </article>
+
+            <article class="lesson-card">
+                <div class="lesson-number">2</div>
+                <h2 class="lesson-title">Analitik esse yazı növü</h2>
+                <p class="lesson-description">
+                    Analitik esse yazının strukturu, yazılış metodları və qiymətləndirmə kriteriyaları. 
+                    Mövzunu dərin təhlil etmə və arqumentləşdirmə texnikalarını mənimsəyin.
+                </p>
+                <a href="Ders-2.html" class="lesson-link">Dərsə keç →</a>
+            </article>
+
+            <article class="lesson-card">
+                <div class="lesson-number">3</div>
+                <h2 class="lesson-title">Təsviri esse yazı növü</h2>
+                <p class="lesson-description">
+                    Təsviri esse yazmağın incəlikləri, dil vasitələrinin effektiv istifadəsi və 
+                    oxucuda canlı təsəvvürlər yaratma metodları haqqında ətraflı məlumat.
+                </p>
+                <a href="Ders-3.html" class="lesson-link">Dərsə keç →</a>
+            </article>
+
+            <article class="lesson-card">
+                <div class="lesson-number">4</div>
+                <h2 class="lesson-title">Mühakimə esse yazı növü</h2>
+                <p class="leman-description">
+                    Mühakimə essesində fikir yürütmə qaydaları, məntiqi ardıcıllıq və 
+                    inandırıcı arqumentlərin qurulması üsulları. Eleştirel düşüncə inkişafı.
+                </p>
+                <a href="Ders-4.html" class="lesson-link">Dərsə keç →</a>
+            </article>
+
+            <article class="lesson-card">
+                <div class="lesson-number">5</div>
+                <h2 class="lesson-title">Müqayisəli esse yazı növü</h2>
+                <p class="lesson-description">
+                    Müxtəlif mövzuları, hadisələri və ya şəxsiyyətləri müqayisə edən esse yazma texnikaları. 
+                    Oxşarlıq və fərqləri sistematik şəkildə təqdim etmə metodları.
+                </p>
+                <a href="Ders-5.html" class="lesson-link">Dərsə keç →</a>
+            </article>
+
+            <article class="lesson-card">
+                <div class="lesson-number">6</div>
+                <h2 class="lesson-title">Esse yazılarının qiymətləndirilməsi</h2>
+                <p class="lesson-description">
+                    Esse yazılarını qiymətləndirmə kriteriyaları, rubrikalar və müxtəlif növ 
+                    esselərin xüsusi qiymətləndirmə metodları. Obyektiv və ədalətli qiymətləndirmə prinsipləri.
+                </p>
+                <a href="Ders-6.html" class="lesson-link">Dərsə keç →</a>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <p>© 2025 Esse Yazı Növlərinin Yoxlanılması və Qiymətləndirilməsi | Azərbaycan dili təhsili</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Müəllif: Ttariyel-1954 | GitHub: <a href="https://github.com/Ttariyel-1954" style="color: #667eea;">github.com/Ttariyel-1954</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Progress bar animation
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Smooth reveal animation for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initialize card animations
+        document.querySelectorAll('.lesson-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Add click animation to cards
+        document.querySelectorAll('.lesson-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    const link = this.querySelector('.lesson-link');
+                    if (link) {
+                        link.click();
+                    }
+                }
+            });
+        });
+
+        // Dynamic time-based greeting
+        const header = document.querySelector('.header p');
+        const hour = new Date().getHours();
+        let greeting = '';
+        
+        if (hour < 12) {
+            greeting = 'Sabahınız xeyir! ';
+        } else if (hour < 18) {
+            greeting = 'Günortanız xeyir! ';
+        } else {
+            greeting = 'Axşamınız xeyir! ';
+        }
+        
+        header.textContent = greeting + header.textContent;
+    </script>
+</body>
+</html>
